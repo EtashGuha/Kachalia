@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/EtashGuha/Kachalia#readme",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "cerner-smart-embeddable-lib": "^1.4.0"
   }
 }
