@@ -13,7 +13,12 @@
   <script src='../fhirlib/js/fhir-client-cerner-additions-1.0.0.js'></script>
   <script src='../node_modules/babel-polyfill/dist/polyfill.js'></script>
   <script src='../node_modules/cerner-smart-embeddable-lib/dist/js/cerner-smart-embeddable-lib-1.4.0.min.js'></script>
-
+  <script>
+      FHIR.oauth2.authorize({
+        'client_id': 'aae269fc-64fa-48e5-89d2-53367148cd85',
+        'scope':  'patient/Patient.read patient/Observation.read launch online_access openid profile'
+      });
+  </script>
   <!-- Optional. Override when the default height calculation does not fit your need. -->
   <!-- <script src='path/to/override-height-calculation.js'></script> -->
 </body>
