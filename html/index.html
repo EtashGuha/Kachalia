@@ -1,12 +1,25 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en" hidden>
   <head>
-    <meta charset="utf-8">
-    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>SMART on FHIR app tutorial</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Example SMART Application</title>
+    <link rel='stylesheet' type='text/css' href='../node_modules/cerner-smart-embeddable-lib/dist/css/cerner-smart-embeddable-lib-1.4.0.min.css'>
   </head>
-  <body>
-    <h1>First FHIR App
-  </body>
+<body>
+  <!-- app's code here -->
+
+  <script src='../fhirlib/js/fhir-client-v0.1.12.js'></script>
+  <script src='../fhirlib/js/fhir-client-cerner-additions-1.0.0.js'></script>
+  <script src='../node_modules/babel-polyfill/dist/polyfill.js'></script>
+  <script src='../node_modules/cerner-smart-embeddable-lib/dist/js/cerner-smart-embeddable-lib-1.4.0.min.js'></script>
+  <script>
+      FHIR.oauth2.authorize({
+        'client_id': 'fc52e9fb-8caf-4f60-b387-7165b227fd5f',
+        'scope':  'patient/Patient.read patient/Observation.read launch online_access openid profile'
+      });
+  </script>
+  <!-- Optional. Override when the default height calculation does not fit your need. -->
+  <!-- <script src='path/to/override-height-calculation.js'></script> -->
+</body>
 </html>
