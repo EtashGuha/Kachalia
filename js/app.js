@@ -24,8 +24,10 @@
 
         $.when(pt, obv).done(function(patient, obv) {
           console.log("BANANA")
-          console.log(obv)
+          // console.log(obv)
+          trueNotes = []
           var byCodes = smart.byCodes(obv, 'code');
+          console.log(byCodes(68608-9))
           var gender = patient.gender;
 
           var fname = '';
