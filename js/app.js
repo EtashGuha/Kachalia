@@ -27,7 +27,9 @@
           // console.log(obv)
           trueNotes = []
           var byCodes = smart.byCodes(obv, 'code');
-          console.log(byCodes(68608-9))
+          obv.forEach(reference => {
+            console.log(obv.type.coding[0])
+          })
           var gender = patient.gender;
 
           var fname = '';
