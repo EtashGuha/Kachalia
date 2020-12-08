@@ -35,7 +35,7 @@
 
           trueNotes.forEach(reference => {
             smart.getBinary(reference["content"][0]["url"]).then(data => {
-              console.log(data)
+              console.log(data.text())
             })
           })
           var gender = patient.gender;
