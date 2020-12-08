@@ -23,23 +23,30 @@
         $.when(pt, obv).fail(onError);
 
         $.when(pt, obv).done(function(patient, obv) {
+
+          var binaries = smart.patient.api.fetchAll({
+                    type: 'Binary',
+                  });
+          $.when(binaries).done(function(binariesList){
+            console.log(binariesList)
+          })
           console.log("BANANA")
           // console.log(obv)
           trueNotes = []
           var byCodes = smart.byCodes(obv, 'code');
-          obv.forEach(reference => {
-            if(reference["type"]["text"] === "Consultation Note Generic"){
-              trueNotes.push(reference)
-            }
-          })
+          // obv.forEach(reference => {
+          //   if(reference["type"]["text"] === "Consultation Note Generic"){
+          //     trueNotes.push(reference)
+          //   }
+          // })
 
-          trueNotes.forEach(reference => {
-            smart.getBinary(reference["content"][0]["attachment"]["url"]).then(data => {
-              data.text().then(textData => {
-                console.log(textData)
-              })
-            })
-          })
+          // trueNotes.forEach(reference => {
+          //   smart.getBinary(reference["content"][0]["attachment"]["url"]).then(data => {
+          //     data.text().then(textData => {
+          //       console.log(textData)
+          //     })
+          //   })
+          // })
           var gender = patient.gender;
 
           var fname = '';
