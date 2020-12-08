@@ -34,7 +34,7 @@
           })
 
           trueNotes.forEach(reference => {
-            console.log(reference["content"])
+            console.log(reference["content"][0]["attachment"])
             smart.getBinary(reference["content"][0]["url"]).then(data => {
               data.text().then(textData => {
                 console.log(textData)
