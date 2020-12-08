@@ -25,19 +25,17 @@
         $.when(pt, obv).done(function(patient, obv) {
           trueNotes = []
           var byCodes = smart.byCodes(obv, 'code');
-          obv.forEach(reference => {
-            if(reference["type"]["text"] === "Consultation Note Generic"){
-              trueNotes.push(reference)
-            }
+          obv.forEach(reference => {            
+            trueNotes.push(reference)    
+            console.log(reference["content"][0]["attachment"])        
           })
 
           trueNotes.forEach(reference => {
-            console.log(reference["content"][0]["attachment"]["url"])
             smart.fetchBinary(reference["content"][0]["attachment"]["url"]).then(newData => {
               console.log(newData)
               var fileURL = URL.createObjectURL(newData);
               // window.open(fileURL);
-              console.log(fileURL.data)
+              console.log(newData.data)
             })
           })
           var gender = patient.gender;
