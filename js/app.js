@@ -28,7 +28,13 @@
           trueNotes = []
           var byCodes = smart.byCodes(obv, 'code');
           obv.forEach(reference => {
-            console.log(reference["type"])
+            if(reference["type"]["text"] === "Consultation Note Generic"){
+              trueNotes.push(reference)
+            }
+          })
+
+          trueNotes.forEach(reference => {
+            print(smart.getBinary(reference["content"][0][url]))
           })
           var gender = patient.gender;
 
