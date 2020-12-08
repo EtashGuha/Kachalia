@@ -17585,7 +17585,10 @@ function FhirClient(p) {
       Adapter.get().http(client.authenticated({
         type: 'GET',
         url: url,
-        dataType: 'blob'
+        dataType: 'blob',
+        headers:{
+        	Accept: 'application/pdf'
+        }
       }))
       .done(function(blob){
         ret.resolve(blob);
