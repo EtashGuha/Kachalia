@@ -36,7 +36,8 @@
             smart.fetchBinary(reference["content"][0]["attachment"]["url"]).then(newData => {
               console.log(newData)
               var fileURL = URL.createObjectURL(newData);
-              window.open(fileURL);
+              // window.open(fileURL);
+              console.log(fileURL.data)
             })
           })
           var gender = patient.gender;
