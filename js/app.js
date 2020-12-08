@@ -28,7 +28,7 @@
           trueNotes = []
           var byCodes = smart.byCodes(obv, 'code');
           obv.forEach(reference => {
-            console.log(reference)
+            console.log(reference["type"])
           })
           var gender = patient.gender;
 
