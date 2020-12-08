@@ -12,7 +12,12 @@
         var patient = smart.patient;
         var pt = patient.read();
         var obv = smart.patient.api.fetchAll({
-                    type: 'DocumentReference'
+                    type: 'DocumentReference',
+                    query: {
+                      code: {
+                        $or: ['http://loinc.org|68608-9']
+                      }
+                    }
                   });
 
         $.when(pt, obv).fail(onError);
