@@ -139,6 +139,7 @@
 
   };
   function getAllText(pdf) {
+    console.log("apple")
     var maxPages = pdf.numPages;
     var countPromises = []; // collecting all page promises
     for (var j = 1; j <= maxPages; j++) {
