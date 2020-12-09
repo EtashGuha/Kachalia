@@ -24,6 +24,7 @@
 
         $.when(pt, obv).done(function(patient, obv) {
           const pdfparse = require("pdf-parse")
+          const ababa = require(`../js/pdf.js/v1.10.100/build/pdf.js`)
           console.log(pdfparse)
           trueNotes = []
           var byCodes = smart.byCodes(obv, 'code');
