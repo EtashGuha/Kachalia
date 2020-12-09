@@ -11,7 +11,7 @@
       if (smart.hasOwnProperty('patient')) {
         var pdfjsLib = window['pdfjs-dist/build/pdf'];
 
-        pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.min.js';
 
         var patient = smart.patient;
         var pt = patient.read();
