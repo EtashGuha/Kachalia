@@ -79,10 +79,8 @@
                     return getAllText(pdf).then(function(text) {
                       return text
                     })
-                  })
+                  }, function(e) {return "error"})
                 })
-              }).catch(function(e) {
-                return "error"
               })
             )
           })
