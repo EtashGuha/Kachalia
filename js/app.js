@@ -50,7 +50,7 @@
         $.when(pt, obv).done(function(patient, obv) {
 
           // trueNotes = []
-          // var byCodes = smart.byCodes(obv, 'code');
+          var byCodes = smart.byCodes(obv, 'code');
           // obv.forEach(reference => {            
           //   trueNotes.push(reference)    
           //   console.log(reference["content"][0]["attachment"])        
