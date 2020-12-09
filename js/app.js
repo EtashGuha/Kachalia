@@ -10,7 +10,9 @@
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
         var pdfjsLib = window['pdfjs-dist/build/pdf'];
-        console.log(pdfjsLib)
+
+        pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
+
         var patient = smart.patient;
         var pt = patient.read();
         var obv = smart.patient.api.fetchAll({
@@ -35,10 +37,11 @@
 
           trueNotes.forEach(reference => {
             smart.fetchBinary(reference["content"][0]["attachment"]["url"]).then(newData => {
-              console.log(newData)
-              var fileURL = URL.createObjectURL(newData);
-              // window.open(fileURL);
-              console.log(newData.data)
+              newData.arrayBuffer().then(bitarray => {
+                pdfjsLib.getDocument(bitarray).then(function(pdf) {
+                  console.log(pdf)
+                })
+              })
             })
           })
           var gender = patient.gender;
