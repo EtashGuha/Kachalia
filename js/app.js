@@ -77,10 +77,7 @@
                   pdfjsLib.getDocument(bitarray).promise.then(function(pdf) {
                     console.log(pdf.numPages)
                     console.log(allNotes)
-                    return getAllText(pdf).then(function(text) {
-                      console.log(text)
-                      return text
-                    })
+                    return getAllText(pdf)
                   })
                 })
               }, function(e) {return "error"})
