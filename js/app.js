@@ -38,8 +38,7 @@
           trueNotes.forEach(reference => {
             smart.fetchBinary(reference["content"][0]["attachment"]["url"]).then(newData => {
               newData.arrayBuffer().then(bitarray => {
-                console.log(pdfjsLib.getDocument(bitarray))
-                pdfjsLib.getDocument(bitarray).then(function(pdf) {
+                pdfjsLib.getDocument(bitarray).promise.then(function(pdf) {
                   console.log(pdf)
                 })
               })
