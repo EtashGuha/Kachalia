@@ -9,7 +9,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
-        PDFJS.workerSrc = '../package/build/pdf.worker.js';
+        const baba = require("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js")
         var patient = smart.patient;
         var pt = patient.read();
         var obv = smart.patient.api.fetchAll({
