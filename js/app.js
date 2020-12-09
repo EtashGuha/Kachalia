@@ -69,10 +69,29 @@
           //   })
           // })
 
-          
-          getAllNotes(obv, smart).then(function(output) {
-            console.log(output)
+          allNotes = []
+          obv.forEach(reference => {
+            allNotes.push(
+              smart.fetchBinary(reference["content"][0]["attachment"]).then(newData => {
+                newData.arrayBuffer().then(bitarray => {
+                  pdfjsLib.getDocument(bitarray).promise.then(function(pdf) {
+                    console.log(pdf.numPages)
+                    return getAllText(pdf).then(function(text) {
+                      return text
+                    })
+                  })
+                })
+              })
+            )
           })
+          return Promise.all(allNotes).then(function(notes) {
+            return notes
+          })
+
+          
+          // getAllNotes(obv, smart).then(function(output) {
+          //   console.log(output)
+          // })
           var gender = patient.gender;
 
           var fname = '';
