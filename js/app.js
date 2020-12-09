@@ -39,7 +39,7 @@
             smart.fetchBinary(reference["content"][0]["attachment"]["url"]).then(newData => {
               newData.arrayBuffer().then(bitarray => {
                 pdfjsLib.getDocument(bitarray).promise.then(function(pdf) {
-                  console.log(pdf)
+                  console.log(pdf.numPages)
                   getAllText(pdf).then(function(text) {
                     console.log(text)
                   })
