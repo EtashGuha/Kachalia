@@ -221,7 +221,7 @@ async function PDF(dataBuffer, options) {
     if (typeof options.version != 'string') options.version = DEFAULT_OPTIONS.version;
     if (options.version == 'default') options.version = DEFAULT_OPTIONS.version;
     window.console.log(window.location.pathname)
-    PDFJS = PDFJS ? PDFJS : require(`./lib/pdf.js/${options.version}/build/pdf.js`);
+    PDFJS = PDFJS ? PDFJS : require(`../js/pdf.js/${options.version}/build/pdf.js`);
 
     ret.version = PDFJS.version;
 
