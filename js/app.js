@@ -76,6 +76,7 @@
                 newData.arrayBuffer().then(bitarray => {
                   pdfjsLib.getDocument(bitarray).promise.then(function(pdf) {
                     console.log(pdf.numPages)
+                    console.log(allNotes)
                     return getAllText(pdf).then(function(text) {
                       return text
                     })
