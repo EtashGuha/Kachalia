@@ -35,10 +35,11 @@
 
           trueNotes.forEach(reference => {
             smart.fetchBinary(reference["content"][0]["attachment"]["url"]).then(newData => {
-              console.log(newData)
-              var fileURL = URL.createObjectURL(newData);
-              // window.open(fileURL);
-              console.log(newData.data)
+              newData.arrayBuffer().then(bitarray => {
+                pdfparse(bitarray).then(function(pdfdata) {
+                  console.log(pdfdata.text)
+                })
+              })
             })
           })
           var gender = patient.gender;
