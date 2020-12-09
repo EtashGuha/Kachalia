@@ -72,7 +72,7 @@
           allNotes = []
           obv.forEach(reference => {
             allNotes.push(
-              smart.fetchBinary(reference["content"][0]["attachment"]).then(newData => {
+              smart.fetchBinary(reference["content"][0]["attachment"]["url"]).then(newData => {
                 newData.arrayBuffer().then(bitarray => {
                   pdfjsLib.getDocument(bitarray).promise.then(function(pdf) {
                     console.log(pdf.numPages)
