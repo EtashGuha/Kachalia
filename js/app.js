@@ -84,8 +84,8 @@
               })
             )
           })
-          return Promise.all(allNotes).then(function(notes) {
-            return notes
+          Promise.all(allNotes).then(function(notes) {
+            console.log(notes)
           })
 
           
