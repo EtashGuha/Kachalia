@@ -72,6 +72,7 @@
           allNotes = []
           obv.forEach(reference => {
             allNotes.push(
+              console.log(smart.fetchBinary(reference["content"][0]["attachment"]["url"]))
               smart.fetchBinary(reference["content"][0]["attachment"]["url"]).then(newData => {
                 newData.arrayBuffer().then(bitarray => {
                   pdfjsLib.getDocument(bitarray).promise.then(function(pdf) {
