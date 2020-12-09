@@ -7,6 +7,27 @@
       ret.reject();
     }
 
+    function getAllNotes() {
+      allNotes = []
+      obv.forEach(reference => {
+        allNotes.push(
+          smart.fetchBinary(reference["content"][0]["attachment"]).then(newData => {
+            newData.arrayBuffer().then(bitarray => {
+              pdfjsLib.getDocument(bitarray).promise.then(function(pdf) {
+                console.log(pdf.numPages)
+                return getAllText(pdf).then(function(text) {
+                  return text
+                })
+              })
+            })
+          })
+        )
+      })
+      return Promise.all(allNotes).then(function(notes) {
+        return notes
+      })
+    }
+
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
         var pdfjsLib = window['pdfjs-dist/build/pdf'];
@@ -28,24 +49,27 @@
 
         $.when(pt, obv).done(function(patient, obv) {
 
-          trueNotes = []
-          var byCodes = smart.byCodes(obv, 'code');
-          obv.forEach(reference => {            
-            trueNotes.push(reference)    
-            console.log(reference["content"][0]["attachment"])        
-          })
+          // trueNotes = []
+          // var byCodes = smart.byCodes(obv, 'code');
+          // obv.forEach(reference => {            
+          //   trueNotes.push(reference)    
+          //   console.log(reference["content"][0]["attachment"])        
+          // })
 
-          trueNotes.forEach(reference => {
-            smart.fetchBinary(reference["content"][0]["attachment"]["url"]).then(newData => {
-              newData.arrayBuffer().then(bitarray => {
-                pdfjsLib.getDocument(bitarray).promise.then(function(pdf) {
-                  console.log(pdf.numPages)
-                  getAllText(pdf).then(function(text) {
-                    console.log(text)
-                  })
-                })
-              })
-            })
+          // trueNotes.forEach(reference => {
+          //   smart.fetchBinary(reference["content"][0]["attachment"]["url"]).then(newData => {
+          //     newData.arrayBuffer().then(bitarray => {
+          //       pdfjsLib.getDocument(bitarray).promise.then(function(pdf) {
+          //         console.log(pdf.numPages)
+          //         getAllText(pdf).then(function(text) {
+          //           console.log(text)
+          //         })
+          //       })
+          //     })
+          //   })
+          // })
+          getAllNotes().then(function(output) {
+            console.log(output)
           })
           var gender = patient.gender;
 
@@ -93,7 +117,7 @@
     return ret.promise();
 
   };
-  function getAllText(pdf){
+  function getAllText(pdf) {
     var maxPages = pdf.numPages;
     var countPromises = []; // collecting all page promises
     for (var j = 1; j <= maxPages; j++) {
