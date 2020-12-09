@@ -78,6 +78,7 @@
                     console.log(pdf.numPages)
                     console.log(allNotes)
                     return getAllText(pdf).then(function(text) {
+                      console.log(text)
                       return text
                     })
                   })
