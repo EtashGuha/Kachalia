@@ -7,7 +7,7 @@
       ret.reject();
     }
 
-    function getAllNotes(obv) {
+    function getAllNotes(obv, smart) {
       allNotes = []
       obv.forEach(reference => {
         allNotes.push(
@@ -68,7 +68,9 @@
           //     })
           //   })
           // })
-          getAllNotes(obv).then(function(output) {
+
+          
+          getAllNotes(obv, smart).then(function(output) {
             console.log(output)
           })
           var gender = patient.gender;
