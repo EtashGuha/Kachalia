@@ -9,6 +9,7 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
+        var pdfjsLib = window['pdfjs-dist/build/pdf'];
         console.log(pdfjsLib)
         var patient = smart.patient;
         var pt = patient.read();
