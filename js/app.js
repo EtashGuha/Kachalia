@@ -79,9 +79,9 @@
                     return getAllText(pdf).then(function(text) {
                       return text
                     })
-                  }, function(e) {return "error"})
+                  })
                 })
-              })
+              }, function(e) {return "error"})
             )
           })
           Promise.all(allNotes).then(function(notes) {
