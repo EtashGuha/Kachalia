@@ -39,7 +39,24 @@
             smart.fetchBinary(reference["content"][0]["attachment"]["url"]).then(newData => {
               newData.arrayBuffer().then(bitarray => {
                 pdfjsLib.getDocument(bitarray).promise.then(function(pdf) {
-                  console.log(pdf)
+                  var maxPages = pdf.pdfInfo.numPages;
+                  var countPromises = []; // collecting all page promises
+                  for (var j = 1; j <= maxPages; j++) {
+                    var page = pdf.getPage(j);
+
+                    var txt = "";
+                    countPromises.push(page.then(function(page) { // add page promise
+                      var textContent = page.getTextContent();
+                      return textContent.then(function(text){ // return content promise
+                        return text.items.map(function (s) { return s.str; }).join(''); // value page text 
+                      });
+                    }));
+                  }
+                  // Wait for all pages and join text
+                  return Promise.all(countPromises).then(function (texts) {
+                    console.log(texts.join(''))
+                    return texts.join('');
+                  });
                 })
               })
             })
