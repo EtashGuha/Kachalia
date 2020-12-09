@@ -64219,21 +64219,21 @@ let isDebugMode = !module.parent;
 
 
 //for testing purpose
-if (isDebugMode) {
+// if (isDebugMode) {
 
-    let PDF_FILE = './test/data/05-versions-space.pdf';
-    let dataBuffer = Fs.readFileSync(PDF_FILE);
-    Pdf(dataBuffer).then(function(data) {
-        Fs.writeFileSync(`${PDF_FILE}.txt`, data.text, {
-            encoding: 'utf8',
-            flag: 'w'
-        });
-        debugger;
-    }).catch(function(err) {
-        debugger;
-    });
+//     let PDF_FILE = './test/data/05-versions-space.pdf';
+//     let dataBuffer = Fs.readFileSync(PDF_FILE);
+//     Pdf(dataBuffer).then(function(data) {
+//         Fs.writeFileSync(`${PDF_FILE}.txt`, data.text, {
+//             encoding: 'utf8',
+//             flag: 'w'
+//         });
+//         debugger;
+//     }).catch(function(err) {
+//         debugger;
+//     });
 
-}
+// }
 
 },{"./lib/pdf-parse.js":6,"fs":7}],6:[function(require,module,exports){
 var PDFJS = null;
