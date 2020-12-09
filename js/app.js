@@ -94,7 +94,7 @@
 
   };
   function getAllText(pdf){
-    var maxPages = pdf.pdfInfo.numPages;
+    var maxPages = pdf.numPages;
     var countPromises = []; // collecting all page promises
     for (var j = 1; j <= maxPages; j++) {
       var page = pdf.getPage(j);
