@@ -83,9 +83,9 @@
               }, function(e) {return "error"})
             )
           })
-          // Promise.all(allNotes).then(function(notes) {
-          //   console.log(notes)
-          // })
+          Promise.all(allNotes).then(function(notes) {
+            console.log(notes)
+          }, function(error) { console.log(error) })
           console.log(allNotes.length)
 
           
