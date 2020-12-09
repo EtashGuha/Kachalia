@@ -23,6 +23,8 @@
         $.when(pt, obv).fail(onError);
 
         $.when(pt, obv).done(function(patient, obv) {
+          const pdfparse = require("pdf-parse")
+          console.log(pdfparse)
           trueNotes = []
           var byCodes = smart.byCodes(obv, 'code');
           obv.forEach(reference => {            
