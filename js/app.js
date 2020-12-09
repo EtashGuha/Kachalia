@@ -87,6 +87,7 @@
           Promise.all(allNotes).then(function(notes) {
             console.log(notes)
           })
+          console.log(allNotes.length)
 
           
           // getAllNotes(obv, smart).then(function(output) {
