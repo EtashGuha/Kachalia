@@ -49,41 +49,8 @@
 
         $.when(pt, obv).done(function(patient, obv) {
 
-          // trueNotes = []
           var byCodes = smart.byCodes(obv, 'code');
-          // obv.forEach(reference => {            
-          //   trueNotes.push(reference)    
-          //   console.log(reference["content"][0]["attachment"])        
-          // })
 
-          // trueNotes.forEach(reference => {
-          //   smart.fetchBinary(reference["content"][0]["attachment"]["url"]).then(newData => {
-          //     newData.arrayBuffer().then(bitarray => {
-          //       pdfjsLib.getDocument(bitarray).promise.then(function(pdf) {
-          //         console.log(pdf.numPages)
-          //         getAllText(pdf).then(function(text) {
-          //           console.log(text)
-          //         })
-          //       })
-          //     })
-          //   })
-          // })
-
-          // allNotes = []
-          // obv.forEach(reference => {
-          //   console.log(smart.fetchBinary(reference["content"][0]["attachment"]["url"]))
-          //   allNotes.push(
-          //     smart.fetchBinary(reference["content"][0]["attachment"]["url"]).then(newData => {
-          //       newData.arrayBuffer().then(bitarray => {
-          //         pdfjsLib.getDocument(bitarray).promise.then(function(pdf) {
-          //           console.log(pdf.numPages)
-          //           console.log(allNotes)
-          //           return getAllText(pdf)
-          //         })
-          //       })
-          //     }, function(e) {return "error"})
-          //   )
-          // })
           allNotes = []
           obv.forEach(reference => {
             console.log(smart.fetchBinary(reference["content"][0]["attachment"]["url"]))
@@ -111,12 +78,7 @@
             }, function(error) { console.log(error) })
 
           }, function(error) { console.log(error) })
-          console.log(allNotes.length)
 
-          
-          // getAllNotes(obv, smart).then(function(output) {
-          //   console.log(output)
-          // })
           var gender = patient.gender;
 
           var fname = '';
@@ -126,8 +88,7 @@
             fname = patient.name[0].given.join(' ');
             lname = patient.name[0].family.join(' ');
           }
-          console.log("BANANA")
-          console.log("BANANA")
+
           var height = byCodes('8302-2');
           var systolicbp = getBloodPressureValue(byCodes('55284-4'),'8480-6');
           var diastolicbp = getBloodPressureValue(byCodes('55284-4'),'8462-4');
