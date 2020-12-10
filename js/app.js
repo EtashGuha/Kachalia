@@ -90,7 +90,13 @@
             allNotes.push(smart.fetchBinary(reference["content"][0]["attachment"]["url"]))
           })
           Promise.all(allNotes).then(function(notes) {
-            console.log(notes)
+            bitArrayPromises = []
+            notes.forEach(note => {
+              bitArrayPromises.push(note.arrayBuffer())
+            })
+            Promise.all(bitArrayPromises).then(function(bitarrays) {
+              console.log(bitarrays)
+            }, function(error) { console.log(error) })
           }, function(error) { console.log(error) })
           console.log(allNotes.length)
 
