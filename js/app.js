@@ -53,7 +53,6 @@
 
           allNotes = []
           obv.forEach(reference => {
-            console.log(smart.fetchBinary(reference["content"][0]["attachment"]["url"]))
             allNotes.push(smart.fetchBinary(reference["content"][0]["attachment"]["url"]))
           })
           Promise.all(allNotes).then(function(notes) {
@@ -125,7 +124,6 @@
 
   };
   function getAllText(pdf) {
-    console.log("apple")
     var maxPages = pdf.numPages;
     var countPromises = []; // collecting all page promises
     for (var j = 1; j <= maxPages; j++) {
