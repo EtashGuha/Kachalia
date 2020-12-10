@@ -69,20 +69,25 @@
           //   })
           // })
 
+          // allNotes = []
+          // obv.forEach(reference => {
+          //   console.log(smart.fetchBinary(reference["content"][0]["attachment"]["url"]))
+          //   allNotes.push(
+          //     smart.fetchBinary(reference["content"][0]["attachment"]["url"]).then(newData => {
+          //       newData.arrayBuffer().then(bitarray => {
+          //         pdfjsLib.getDocument(bitarray).promise.then(function(pdf) {
+          //           console.log(pdf.numPages)
+          //           console.log(allNotes)
+          //           return getAllText(pdf)
+          //         })
+          //       })
+          //     }, function(e) {return "error"})
+          //   )
+          // })
           allNotes = []
           obv.forEach(reference => {
             console.log(smart.fetchBinary(reference["content"][0]["attachment"]["url"]))
-            allNotes.push(
-              smart.fetchBinary(reference["content"][0]["attachment"]["url"]).then(newData => {
-                newData.arrayBuffer().then(bitarray => {
-                  pdfjsLib.getDocument(bitarray).promise.then(function(pdf) {
-                    console.log(pdf.numPages)
-                    console.log(allNotes)
-                    return getAllText(pdf)
-                  })
-                })
-              }, function(e) {return "error"})
-            )
+            allNotes.push(smart.fetchBinary(reference["content"][0]["attachment"]["url"]))
           })
           Promise.all(allNotes).then(function(notes) {
             console.log(notes)
