@@ -95,8 +95,15 @@
               bitArrayPromises.push(note.arrayBuffer())
             })
             Promise.all(bitArrayPromises).then(function(bitarrays) {
-              console.log(bitarrays)
+              pdfjsPromises = []
+              bitarrays.foreach(bitarray => {
+                pdfjsPromises.push(pdfjsLib.getDocument(bitarray).promise)
+              })
+              Promise.all(pdfjsPromises).then(function(pdfs) {
+                console.log(pdfs)
+              })
             }, function(error) { console.log(error) })
+
           }, function(error) { console.log(error) })
           console.log(allNotes.length)
 
