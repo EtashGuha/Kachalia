@@ -96,7 +96,7 @@
             })
             Promise.all(bitArrayPromises).then(function(bitarrays) {
               pdfjsPromises = []
-              bitarrays.foreach(bitarray => {
+              bitarrays.forEach(bitarray => {
                 pdfjsPromises.push(pdfjsLib.getDocument(bitarray).promise)
               })
               Promise.all(pdfjsPromises).then(function(pdfs) {
