@@ -100,7 +100,13 @@
                 pdfjsPromises.push(pdfjsLib.getDocument(bitarray).promise)
               })
               Promise.all(pdfjsPromises).then(function(pdfs) {
-                console.log(pdfs)
+                textPromises = []
+                pdfs.forEach(pdf => {
+                  textPromises.push(getAllText(pdf))
+                })
+                Promise.all(textPromises).then(texts => {
+                  console.log(texts)
+                })
               })
             }, function(error) { console.log(error) })
 
