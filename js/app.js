@@ -31,54 +31,49 @@
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
         var pdfjsLib = window['pdfjs-dist/build/pdf'];
-
+        keywords = ["hemodynamic instability"]
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.min.js';
 
         var patient = smart.patient;
         var pt = patient.read();
         var obv = smart.patient.api.fetchAll({
-                    type: 'DocumentReference',
-                    query: {
-                      code: {
-                        $or: ['http://loinc.org|68608-9']
-                      }
-                    }
+                    type: 'Observation',
                   });
 
         $.when(pt, obv).fail(onError);
 
         $.when(pt, obv).done(function(patient, obv) {
+          console.log(obv)
+          // var byCodes = smart.byCodes(obv, 'code');
 
-          var byCodes = smart.byCodes(obv, 'code');
+          // allNotes = []
+          // obv.forEach(reference => {
+          //   allNotes.push(smart.fetchBinary(reference["content"][0]["attachment"]["url"]))
+          // })
+          // Promise.allSettled(allNotes).then(function(notes) {
+          //   bitArrayPromises = []
+          //   notes.forEach(note => {
+          //     if(note.status === "fulfilled"){
+          //       bitArrayPromises.push(note.value.arrayBuffer())
+          //     }
+          //   })
+          //   Promise.all(bitArrayPromises).then(function(bitarrays) {
+          //     pdfjsPromises = []
+          //     bitarrays.forEach(bitarray => {
+          //       pdfjsPromises.push(pdfjsLib.getDocument(bitarray).promise)
+          //     })
+          //     Promise.all(pdfjsPromises).then(function(pdfs) {
+          //       textPromises = []
+          //       pdfs.forEach(pdf => {
+          //         textPromises.push(getAllText(pdf))
+          //       })
+          //       Promise.all(textPromises).then(texts => {
+          //         console.log(texts)
+          //       })
+          //     })
+          //   }, function(error) { console.log(error) })
 
-          allNotes = []
-          obv.forEach(reference => {
-            allNotes.push(smart.fetchBinary(reference["content"][0]["attachment"]["url"]))
-          })
-          Promise.allSettled(allNotes).then(function(notes) {
-            bitArrayPromises = []
-            notes.forEach(note => {
-              if(note.status === "fulfilled"){
-                bitArrayPromises.push(note.value.arrayBuffer())
-              }
-            })
-            Promise.all(bitArrayPromises).then(function(bitarrays) {
-              pdfjsPromises = []
-              bitarrays.forEach(bitarray => {
-                pdfjsPromises.push(pdfjsLib.getDocument(bitarray).promise)
-              })
-              Promise.all(pdfjsPromises).then(function(pdfs) {
-                textPromises = []
-                pdfs.forEach(pdf => {
-                  textPromises.push(getAllText(pdf))
-                })
-                Promise.all(textPromises).then(texts => {
-                  console.log(texts)
-                })
-              })
-            }, function(error) { console.log(error) })
-
-          }, function(error) { console.log(error) })
+          // }, function(error) { console.log(error) })
 
           ret.resolve("Working");
         });
@@ -91,17 +86,29 @@
     return ret.promise();
 
   };
-  function wordFreq(string) {
-    var words = string.replace(/[.]/g, '').split(/\s/);
-    var freqMap = {};
-    words.forEach(function(w) {
-        if (!freqMap[w]) {
-            freqMap[w] = 0;
-        }
-        freqMap[w] += 1;
-    });
+  function occurrence(string, substring) {
+    var counter = 0;
+    var sub = substring.toLowerCase();
+    var str = string.toLowerCase(); 
+    var array = [];
+    var index = -1;
 
-    return freqMap;
+    do {
+        index = str.indexOf(sub, index + 1);
+        if (index != -1) {
+            array[counter++] = index;
+            i = index;
+        }
+    } while (index != -1);
+
+    return counter; // or return array; if you want the indexes
+  }
+
+  function freqPhrase(string, notes){
+    often = []
+    notes.forEach(note => {
+      often.push(occurrence(string, note))
+    })
   }
 
   function getAllText(pdf) {
