@@ -59,7 +59,9 @@
                   newObv.then(finalObservations => {
                     var obvicodes = smart.byCodes(finalObservations, 'code');
                     var height = obvicodes('8302-2');
+                    var weight = obvicodes('29463-7')
                     console.log(height)
+                    console.log(weight)
                   })
                 })
               })
