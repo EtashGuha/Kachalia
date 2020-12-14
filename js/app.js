@@ -123,6 +123,19 @@
     return ret.promise();
 
   };
+  function wordFreq(string) {
+    var words = string.replace(/[.]/g, '').split(/\s/);
+    var freqMap = {};
+    words.forEach(function(w) {
+        if (!freqMap[w]) {
+            freqMap[w] = 0;
+        }
+        freqMap[w] += 1;
+    });
+
+    return freqMap;
+  }
+
   function getAllText(pdf) {
     var maxPages = pdf.numPages;
     var countPromises = []; // collecting all page promises
