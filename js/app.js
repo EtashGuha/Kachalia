@@ -58,8 +58,9 @@
           Promise.allSettled(allNotes).then(function(notes) {
             bitArrayPromises = []
             notes.forEach(note => {
-              console.log(note.status)
-              bitArrayPromises.push(note.arrayBuffer())
+              if(note.status === "fulfilled"){
+                bitArrayPromises.push(note.value.arrayBuffer())
+              }
             })
             Promise.all(bitArrayPromises).then(function(bitarrays) {
               pdfjsPromises = []
