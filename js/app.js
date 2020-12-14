@@ -7,27 +7,6 @@
       ret.reject();
     }
 
-    function getAllNotes(obv, smart) {
-      allNotes = []
-      obv.forEach(reference => {
-        allNotes.push(
-          smart.fetchBinary(reference["content"][0]["attachment"]).then(newData => {
-            newData.arrayBuffer().then(bitarray => {
-              pdfjsLib.getDocument(bitarray).promise.then(function(pdf) {
-                console.log(pdf.numPages)
-                return getAllText(pdf).then(function(text) {
-                  return text
-                })
-              })
-            })
-          })
-        )
-      })
-      return Promise.all(allNotes).then(function(notes) {
-        return notes
-      })
-    }
-
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
         var pdfjsLib = window['pdfjs-dist/build/pdf'];
@@ -37,43 +16,59 @@
         var patient = smart.patient;
         var pt = patient.read();
         var obv = smart.patient.api.fetchAll({
-                    type: 'Observation',
+                    type: 'DocumentReference',
+                    query: {
+                      code: {
+                        $or: ['http://loinc.org|68608-9']
+                      }
+                    }
                   });
 
         $.when(pt, obv).fail(onError);
 
         $.when(pt, obv).done(function(patient, obv) {
-          console.log(obv)
-          // var byCodes = smart.byCodes(obv, 'code');
 
-          // allNotes = []
-          // obv.forEach(reference => {
-          //   allNotes.push(smart.fetchBinary(reference["content"][0]["attachment"]["url"]))
-          // })
-          // Promise.allSettled(allNotes).then(function(notes) {
-          //   bitArrayPromises = []
-          //   notes.forEach(note => {
-          //     if(note.status === "fulfilled"){
-          //       bitArrayPromises.push(note.value.arrayBuffer())
-          //     }
-          //   })
-          //   Promise.all(bitArrayPromises).then(function(bitarrays) {
-          //     pdfjsPromises = []
-          //     bitarrays.forEach(bitarray => {
-          //       pdfjsPromises.push(pdfjsLib.getDocument(bitarray).promise)
-          //     })
-          //     Promise.all(pdfjsPromises).then(function(pdfs) {
-          //       textPromises = []
-          //       pdfs.forEach(pdf => {
-          //         textPromises.push(getAllText(pdf))
-          //       })
-          //       Promise.all(textPromises).then(texts => {
-          //         console.log(texts)
-          //       })
-          //     })
-          //   }, function(error) { console.log(error) })
+          var byCodes = smart.byCodes(obv, 'code');
 
-          // }, function(error) { console.log(error) })
+          allNotes = []
+          obv.forEach(reference => {
+            allNotes.push(smart.fetchBinary(reference["content"][0]["attachment"]["url"]))
+          })
+          Promise.allSettled(allNotes).then(function(notes) {
+            bitArrayPromises = []
+            notes.forEach(note => {
+              if(note.status === "fulfilled"){
+                bitArrayPromises.push(note.value.arrayBuffer())
+              }
+            })
+            Promise.all(bitArrayPromises).then(function(bitarrays) {
+              pdfjsPromises = []
+              bitarrays.forEach(bitarray => {
+                pdfjsPromises.push(pdfjsLib.getDocument(bitarray).promise)
+              })
+              Promise.all(pdfjsPromises).then(function(pdfs) {
+                textPromises = []
+                pdfs.forEach(pdf => {
+                  textPromises.push(getAllText(pdf))
+                })
+                Promise.all(textPromises).then(texts => {
+                  var newObv = smart.patient.api.fetchAll({
+                    type: 'DocumentReference',
+                    query: {
+                      code: {
+                        $or: ['http://loinc.org|68608-9']
+                      }
+                    }
+                  });
+
+                  newObv.then(finalObservations => {
+                    console.log(finalObservations)
+                  })
+                })
+              })
+            }, function(error) { console.log(error) })
+
+          }, function(error) { console.log(error) })
 
           ret.resolve("Working");
         });
