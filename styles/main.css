@@ -1,0 +1,18 @@
+#icdlist {
+    margin-left: 20px;
+}
+
+#icdlist button {
+    display: block;
+    margin: 20px;
+}
+
+.icdlabel {
+  font-size: 20px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 10px 32px;
+  border-radius: 4px;
+  color: black;
+  background: transparent;
+}
