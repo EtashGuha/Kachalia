@@ -57,7 +57,8 @@
                   });
 
                   newObv.then(finalObservations => {
-                    console.log(finalObservations)
+                    var obvicodes = smart.byCodes(finalObservations, 'code');
+                    var height = obvicodes('8302-2');
                   })
                 })
               })
