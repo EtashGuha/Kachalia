@@ -53,12 +53,7 @@
                 })
                 Promise.all(textPromises).then(texts => {
                   var newObv = smart.patient.api.fetchAll({
-                    type: 'DocumentReference',
-                    query: {
-                      code: {
-                        $or: ['http://loinc.org|68608-9']
-                      }
-                    }
+                    type: 'Observation'
                   });
 
                   newObv.then(finalObservations => {
