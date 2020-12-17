@@ -60,7 +60,9 @@
                     var obvicodes = smart.byCodes(finalObservations, 'code');
                     var height = obvicodes('8302-2');
                     var weight = obvicodes('67781-5')
+                    var notes =  obvicodes('28650-0')
                     console.log(height)
+                    console.log(notes)
                     console.log(weight)
                   })
                 })
