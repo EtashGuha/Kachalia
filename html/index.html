@@ -11,11 +11,18 @@
 <body>
 
     <h2>Suggested ICD-10 Labels</h2>
-    <div id="icdlist">
+    <!-- <div id="icdlist">
       <button class="icdlabel">A000 | Some Disease Name</button>
       <button class="icdlabel">A000 | Some Disease Name</button>
 
+    </div> -->
+    <div id="suggested">
+      <ul>
+        <li class="codelistitem"><span class="codetext">A00 </span>Cholera<span class="billdisplay billable">BILLABLE CODE</span></li>
+        <li class="codelistitem"><span class="codetext">A00 </span>Cholera<span class="billdisplay notbillable">NON-BILLABLE CODE</span></li>
+      </ul>
     </div>
+
 
   <script src='../fhirlib/js/fhir-client-v0.1.12.js'></script>
   <script src='../fhirlib/js/fhir-client-cerner-additions-1.0.0.js'></script>

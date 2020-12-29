@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
 #icdlist {
     margin-left: 20px;
 }
@@ -15,4 +17,34 @@
   border-radius: 4px;
   color: black;
   background: transparent;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.codelistitem {
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+.billdisplay {
+  display: inline;
+  padding: .2em .6em .3em;
+  font-size: 60%;
+  /* line-height: 1; */
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border-radius: .25em;
+  margin-left: 5px;
+}
+
+.billable {
+  background-color: #5cb85c;
+}
+
+.notbillable {
+  background-color: #d9534f;
 }
