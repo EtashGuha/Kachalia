@@ -6,7 +6,18 @@
       console.log('Loading error', arguments);
       ret.reject();
     }
+    function sortedIndex(array, value) {
+        var low = 0,
+            high = array.length;
 
+        while (low < high) {
+            var mid = (low + high) >>> 1;
+            if (array[mid] < value) high = mid;
+            else low = mid + 1;
+        }
+        return low
+
+    }
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
         var pdfjsLib = window['pdfjs-dist/build/pdf'];
@@ -31,7 +42,7 @@
             var map = new Map()
             var topScores = []
             Object.keys(json).forEach(key => {
-              map[key] = 0;
+              map.set(key, 0)
             })
             obv.forEach(reference => {
               smart.fetchBinary(reference["content"][0]["attachment"]["url"]).then(note => {
@@ -44,9 +55,19 @@
                           var currScore = 0;
 
                           value["keywords"].forEach(keyword => {
-                            console.log(keyword)
+                            if(text.includes(keyword)){
+                              currScore += 1
+                            }
                           })
+
+                          map.set(key, map.get(key) + currScore)
+                          var indexToInsert = sortedIndex(topScores, currScore);
+                          topScores.splice(low, 0, key)
+                          if(topScores.length < 10){
+                            topScores.splice(-1, 1)
+                          }
                       });
+                      console.log(topScores)
                     })
                   })
                 })
