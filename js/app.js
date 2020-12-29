@@ -71,7 +71,11 @@
                           }
                       });
                       console.log(topScores)
-                      console.log([for (x of topScores) codeToTitle.get(x)])
+                      var titles = []
+                      topScores.forEach(code => {
+                        titles.push(codeToTitle.get(code))
+                      })
+                      console.log(titles)
                     })
                   })
                 })
