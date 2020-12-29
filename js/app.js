@@ -76,8 +76,9 @@
                         titles.push(codeToTitle.get(code))
                       })
                       console.log(titles)
+                      var banana = document.getElementById('suggested');
+                      banana.innerHTML = '';
                       for(var i = 0; i < topScores.length; i++){
-                        var banana = document.getElementById('suggested');
                         var element = document.createElement("li")
                         element.className = "codelistitem"
                         var codespan  = document.createElement('span')
