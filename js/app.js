@@ -102,11 +102,11 @@
         // } else {
         //   onError();
         // }
-      }
+      })
 
     FHIR.oauth2.ready(onReady, onError);
     return ret.promise();
-  }
+
   };
   function occurrence(string, substring) {
     var counter = 0;
