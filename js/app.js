@@ -29,7 +29,18 @@
         $.when(pt, obv).done(function(patient, obv) {
 
           var byCodes = smart.byCodes(obv, 'code');
+          $.getJSON("../sample.json", function(json) {
+                  console.log(json); 
+                  // icdScoring = []
 
+                  // json.forEach(icd => {
+                  //   icdScoring.push(new Promise((resolve, reject) => {
+                  //     icd["keywords"].forEach(keyword => {
+                  //       if notesInfo.includes(keyword)
+                  //     }
+                  //   }))
+                  // })
+                });
           allNotes = []
           obv.forEach(reference => {
             allNotes.push(smart.fetchBinary(reference["content"][0]["attachment"]["url"]))
