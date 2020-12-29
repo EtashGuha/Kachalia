@@ -53,6 +53,7 @@
                 })
                 Promise.all(textPromises).then(texts => {
                   var notesInfo = texts.join(" ")
+                  console.log(notesInfo)
                   $.getJSON("../sample.json", function(json) {
                     console.log(json); 
                     // icdScoring = []
