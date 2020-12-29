@@ -99,9 +99,9 @@
 
         //   }, function(error) { console.log(error) })
         // });
-      } else {
-        onError();
-      }
+      // } else {
+      //   onError();
+      // }
     }
 
     FHIR.oauth2.ready(onReady, onError);
