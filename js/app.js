@@ -84,7 +84,7 @@
                         var codespan  = document.createElement('span')
                         codespan.className = "codetext"
                         codespan.innerText = topScores[i]
-                        var name = document.createTextNode(titles[i]);
+                        var name = document.createTextNode(":    " + titles[i]);
                         element.append(codespan)
                         element.append(name)
                         banana.append(element)  
