@@ -27,13 +27,17 @@
         $.when(pt, obv).fail(onError);
 
         $.when(pt, obv).done(function(patient, obv) {
-
-          obv.forEach(reference => {
-            smart.fetchBinary(reference["content"][0]["attachment"]["url"]).then(note => {
-              note.arrayBuffer().then(bitarray => {
-                pdfjsLib.getDocument(bitarray).promise.then(pdf => {
-                  getAllText(pdf).then(text => {
-                    console.log(text)
+          $.getJSON("../sample.json", function(json) {
+            obv.forEach(reference => {
+              smart.fetchBinary(reference["content"][0]["attachment"]["url"]).then(note => {
+                note.arrayBuffer().then(bitarray => {
+                  pdfjsLib.getDocument(bitarray).promise.then(pdf => {
+                    getAllText(pdf).then(text => {
+                      icdScoring = []
+                      json.forEach(icd => {
+                        console.log(icd)
+                      })
+                    })
                   })
                 })
               })
