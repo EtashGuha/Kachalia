@@ -76,6 +76,7 @@
                         titles.push(codeToTitle.get(code))
                       })
                       console.log(titles)
+                      var banana = document.getElementById('suggested');
                     })
                   })
                 })
