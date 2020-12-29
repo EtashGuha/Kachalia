@@ -6,13 +6,13 @@
       console.log('Loading error', arguments);
       ret.reject();
     }
-    function sortedIndex(array, value) {
+    function sortedIndex(array, map, value) {
         var low = 0,
             high = array.length;
 
         while (low < high) {
             var mid = (low + high) >>> 1;
-            if (array[mid] < value) high = mid;
+            if (map.get(array[mid]) < value) high = mid;
             else low = mid + 1;
         }
         return low
@@ -60,7 +60,7 @@
                             }
                           })
                           map.set(key, map.get(key) + currScore)
-                          var indexToInsert = sortedIndex(topScores, currScore);
+                          var indexToInsert = sortedIndex(topScores, map, currScore);
                           topScores.splice(indexToInsert, 0, key)
                           if(topScores.length > 10){
                             topScores.splice(-1, 1)
