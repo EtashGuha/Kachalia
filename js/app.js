@@ -28,65 +28,77 @@
 
         $.when(pt, obv).done(function(patient, obv) {
 
-          var byCodes = smart.byCodes(obv, 'code');
-          allNotes = []
           obv.forEach(reference => {
-            allNotes.push(smart.fetchBinary(reference["content"][0]["attachment"]["url"]))
-          })
-          Promise.allSettled(allNotes).then(function(notes) {
-            bitArrayPromises = []
-            notes.forEach(note => {
-              if(note.status === "fulfilled"){
-                bitArrayPromises.push(note.value.arrayBuffer())
-              }
+            smart.fetchBinary(reference["content"][0]["attachment"]["url"]).then(note => {
+              note.value.arrayBuffer().then(bitarray => {
+                pdfjsLib.getDocument(bitarray).promise.then(pdf => {
+                  getAllText(pdf).then(text => {
+                    console.log(text)
+                  })
+                })
+              })
             })
-            Promise.all(bitArrayPromises).then(function(bitarrays) {
-              console.log(bitarrays)
-              pdfjsPromises = []
-              bitarrays.forEach(bitarray => {
-                pdfjsPromises.push(pdfjsLib.getDocument(bitarray).promise)
-              })
-              Promise.all(pdfjsPromises).then(function(pdfs) {
-                console.log(pdfjsPromises)
+          })
 
-                textPromises = []
-                pdfs.forEach(pdf => {
-                  textPromises.push(getAllText(pdf))
-                })
-                Promise.all(textPromises).then(texts => {
-                  var notesInfo = texts.join(" ")
-                  console.log(notesInfo)
-                  $.getJSON("../sample.json", function(json) {
-                    console.log(json); 
-                    // icdScoring = []
+        //   var byCodes = smart.byCodes(obv, 'code');
+        //   allNotes = []
+        //   obv.forEach(reference => {
+        //     allNotes.push(smart.fetchBinary(reference["content"][0]["attachment"]["url"]))
+        //   })
+        //   Promise.allSettled(allNotes).then(function(notes) {
+        //     bitArrayPromises = []
+        //     notes.forEach(note => {
+        //       if(note.status === "fulfilled"){
+        //         bitArrayPromises.push(note.value.arrayBuffer())
+        //       }
+        //     })
+        //     Promise.all(bitArrayPromises).then(function(bitarrays) {
+        //       console.log(bitarrays)
+        //       pdfjsPromises = []
+        //       bitarrays.forEach(bitarray => {
+        //         pdfjsPromises.push(pdfjsLib.getDocument(bitarray).promise)
+        //       })
+        //       Promise.all(pdfjsPromises).then(function(pdfs) {
+        //         console.log(pdfjsPromises)
 
-                    // json.forEach(icd => {
-                    //   icdScoring.push(new Promise((resolve, reject) => {
-                    //     icd["keywords"].forEach(keyword => {
-                    //       if notesInfo.includes(keyword)
-                    //     }
-                    //   }))
-                    // })
-                  });
-                  // var newObv = smart.patient.api.fetchAll({
-                  //   type: 'Observation'
-                  // });
+        //         textPromises = []
+        //         pdfs.forEach(pdf => {
+        //           textPromises.push(getAllText(pdf))
+        //         })
+        //         Promise.all(textPromises).then(texts => {
+        //           var notesInfo = texts.join(" ")
+        //           console.log(notesInfo)
+        //           $.getJSON("../sample.json", function(json) {
+        //             console.log(json); 
+        //             // icdScoring = []
 
-                  // newObv.then(finalObservations => {
-                  //   var obvicodes = smart.byCodes(finalObservations, 'code');
-                  //   var height = obvicodes('8302-2');
-                  //   var weight = obvicodes('67781-5')
-                  //   var notes =  obvicodes('28650-0')
-                  //   console.log(height)
-                  //   console.log(notes)
-                  //   console.log(weight)
-                  // })
-                })
-              })
-            }, function(error) { console.log(error) })
+        //             // json.forEach(icd => {
+        //             //   icdScoring.push(new Promise((resolve, reject) => {
+        //             //     icd["keywords"].forEach(keyword => {
+        //             //       if notesInfo.includes(keyword)
+        //             //     }
+        //             //   }))
+        //             // })
+        //           });
+        //           // var newObv = smart.patient.api.fetchAll({
+        //           //   type: 'Observation'
+        //           // });
 
-          }, function(error) { console.log(error) })
-        });
+        //           // newObv.then(finalObservations => {
+        //           //   var obvicodes = smart.byCodes(finalObservations, 'code');
+        //           //   var height = obvicodes('8302-2');
+        //           //   var weight = obvicodes('67781-5')
+        //           //   var notes =  obvicodes('28650-0')
+        //           //   console.log(height)
+        //           //   console.log(notes)
+        //           //   console.log(weight)
+        //           // })
+        //         })
+        //       })
+        //     }, function(error) { console.log(error) })
+
+        //   }, function(error) { console.log(error) })
+        // });
       } else {
         onError();
       }
