@@ -76,7 +76,18 @@
                         titles.push(codeToTitle.get(code))
                       })
                       console.log(titles)
-                      var banana = document.getElementById('suggested');
+                      for(var i = 0; i < topScores.length; i++){
+                        var banana = document.getElementById('suggested');
+                        var element = document.createElement("li")
+                        element.className = "codelistitem"
+                        var codespan  = document.createElement('span')
+                        codespan.className = "codetext"
+                        codespan.innerText = topScores[i]
+                        var name = document.createTextNode(codeToTitle[i]);
+                        element.append(codespan)
+                        element.append(name)
+                        banana.append(element)  
+                      }
                     })
                   })
                 })
