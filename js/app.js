@@ -59,9 +59,7 @@
                           var value = json[key];
                           var currScore = 0;
                           value["keywords"].forEach(keyword => {
-                            if(lower_text.includes(keyword)){
-                              currScore += 1
-                            }
+                            currScore += occurrences(lower_text, keyword)
                           })
                           map.set(key, map.get(key) + currScore)
                           var indexToInsert = sortedIndex(topScores, map, currScore);
@@ -121,6 +119,26 @@
     } while (index != -1);
 
     return counter; // or return array; if you want the indexes
+  }
+
+  function occurrences(string, subString, allowOverlapping) {
+
+    string += "";
+    subString += "";
+    if (subString.length <= 0) return (string.length + 1);
+
+    var n = 0,
+        pos = 0,
+        step = allowOverlapping ? 1 : subString.length;
+
+    while (true) {
+        pos = string.indexOf(subString, pos);
+        if (pos >= 0) {
+            ++n;
+            pos += step;
+        } else break;
+    }
+    return n;
   }
 
   function freqPhrase(string, notes){
