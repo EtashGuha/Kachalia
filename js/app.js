@@ -28,6 +28,11 @@
 
         $.when(pt, obv).done(function(patient, obv) {
           $.getJSON("../sample.json", function(json) {
+            var map = new Map()
+            var topScores = []
+            Object.keys(json).forEach(key => {
+              map[key] = 0;
+            })
             obv.forEach(reference => {
               smart.fetchBinary(reference["content"][0]["attachment"]["url"]).then(note => {
                 note.arrayBuffer().then(bitarray => {
@@ -36,7 +41,11 @@
                       icdScoring = []
                       Object.keys(json).forEach(function(key) {
                           var value = json[key];
-                          console.log(value)
+                          var currScore = 0;
+
+                          value["keywords"].forEach(keyword => {
+                            console.log(keyword)
+                          })
                       });
                     })
                   })
