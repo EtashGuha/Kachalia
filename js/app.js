@@ -49,13 +49,14 @@
                 note.arrayBuffer().then(bitarray => {
                   pdfjsLib.getDocument(bitarray).promise.then(pdf => {
                     getAllText(pdf).then(text => {
+                      var lower_text = text.toLowerCase()
                       icdScoring = []
                       Object.keys(json).forEach(function(key) {
                           var value = json[key];
                           var currScore = 0;
-
+                          console.log(value["keywords"])
                           value["keywords"].forEach(keyword => {
-                            if(text.includes(keyword)){
+                            if(lower_text.includes(keyword)){
                               currScore += 1
                             }
                           })
