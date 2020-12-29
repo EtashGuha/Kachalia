@@ -29,18 +29,6 @@
         $.when(pt, obv).done(function(patient, obv) {
 
           var byCodes = smart.byCodes(obv, 'code');
-          $.getJSON("../sample.json", function(json) {
-                  console.log(json); 
-                  // icdScoring = []
-
-                  // json.forEach(icd => {
-                  //   icdScoring.push(new Promise((resolve, reject) => {
-                  //     icd["keywords"].forEach(keyword => {
-                  //       if notesInfo.includes(keyword)
-                  //     }
-                  //   }))
-                  // })
-                });
           allNotes = []
           obv.forEach(reference => {
             allNotes.push(smart.fetchBinary(reference["content"][0]["attachment"]["url"]))
@@ -53,11 +41,14 @@
               }
             })
             Promise.all(bitArrayPromises).then(function(bitarrays) {
+              console.log(bitarrays)
               pdfjsPromises = []
               bitarrays.forEach(bitarray => {
                 pdfjsPromises.push(pdfjsLib.getDocument(bitarray).promise)
               })
               Promise.all(pdfjsPromises).then(function(pdfs) {
+                console.log(pdfjsPromises)
+
                 textPromises = []
                 pdfs.forEach(pdf => {
                   textPromises.push(getAllText(pdf))
