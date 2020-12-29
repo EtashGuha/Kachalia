@@ -34,6 +34,7 @@
                   pdfjsLib.getDocument(bitarray).promise.then(pdf => {
                     getAllText(pdf).then(text => {
                       icdScoring = []
+                      console.log(json)
                       for(var i = 0; i < json.length; i++) {
                           var obj = json[i];
 
