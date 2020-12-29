@@ -60,7 +60,7 @@
                               currScore += 1
                             }
                           })
-
+                          console.log(currScore)
                           map.set(key, map.get(key) + currScore)
                           var indexToInsert = sortedIndex(topScores, currScore);
                           topScores.splice(indexToInsert, 0, key)
