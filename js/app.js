@@ -63,7 +63,7 @@
                           map.set(key, map.get(key) + currScore)
                           var indexToInsert = sortedIndex(topScores, currScore);
                           topScores.splice(indexToInsert, 0, key)
-                          if(topScores.length < 10){
+                          if(topScores.length > 10){
                             topScores.splice(-1, 1)
                           }
                       });
