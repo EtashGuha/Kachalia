@@ -48,6 +48,10 @@
             Object.keys(json).forEach(key => {
               codeToTitle.set(key, json[key]["title"])
             })
+            codeToRelevantKeywords = new Map()
+            Object.keys(json).forEach(key => {
+              codeToRelevantKeywords.set(key, new Set())
+            })
             obv.forEach(reference => {
               smart.fetchBinary(reference["content"][0]["attachment"]["url"]).then(note => {
                 note.arrayBuffer().then(bitarray => {
@@ -59,7 +63,11 @@
                           var value = json[key];
                           var currScore = 0;
                           value["keywords"].forEach(keyword => {
-                            currScore += occurrences(lower_text, keyword)
+                            var numOccurrences = occurrences(lower_text, keyword)
+                            if (numOccurrences > 0) {
+                              codeToRelevantKeywords.get(key).add(keyword)
+                            }
+                            currScore += numOccurrences
                           })
                           map.set(key, map.get(key) + currScore)
                           var indexToInsert = sortedIndex(topScores, map, currScore);
@@ -73,6 +81,11 @@
                       topScores.forEach(code => {
                         titles.push(codeToTitle.get(code))
                       })
+                      var relKeywords = []
+                      topScores.forEach(code => {
+                        relKeywords.push(codeToRelevantKeywords.get(code))
+                      })
+                      console.log(relKeywords)
                       console.log(titles)
                       var banana = document.getElementById('suggested');
                       banana.innerHTML = '';
